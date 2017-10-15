@@ -17,9 +17,9 @@ pipeline {
         stage ('Build') {
             when {
                 expression {
-                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-                    return GIT_BRANCH == 'origin/master' || params.FORCE_FULL_BUILD
+                    return GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                    //GIT_BRANCH = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+                    //return GIT_BRANCH == 'origin/master' || params.FORCE_FULL_BUILD
                 }
             }
             steps {
