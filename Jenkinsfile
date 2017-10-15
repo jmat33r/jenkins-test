@@ -25,6 +25,16 @@ pipeline {
             echo 'BASIC WHEN - Master Branch!'
          }
       }
+
+      // Execute when branch = 'pipeline'
+      stage("BASIC WHEN - Branch") {
+         when {
+		    branch 'pipeline'
+		 }
+         steps {
+            echo 'BASIC WHEN - Pipeline Branch!'
+         }
+      }
       
       // Expression based when example with AND
       stage('WHEN EXPRESSION with AND') {
