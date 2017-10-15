@@ -36,6 +36,7 @@ pipeline {
                         build job: 'full-build-windows', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
                     },
                     failFast: false)
+                sh 'echo GIT_BRANCH'
             }
         }
 
