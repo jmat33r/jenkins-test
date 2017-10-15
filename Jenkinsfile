@@ -1,15 +1,5 @@
 pipeline {
     agent any
-    parameters {
-        string (
-            defaultValue: '*',
-            description: '',
-            name : 'BRANCH_PATTERN')
-        booleanParam (
-            defaultValue: false,
-            description: '',
-            name : 'FORCE_FULL_BUILD')
-    }
 
     stages {
 
@@ -23,10 +13,6 @@ pipeline {
                 }
             }
             steps {
-                // Freestyle build trigger calls a list of jobs
-                // Pipeline build() step only calls one job
-                // To run all three jobs in parallel, we use "parallel" step
-                // https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel
                 parallel (
                     linux: {
                         build job: 'test_pipeline', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
