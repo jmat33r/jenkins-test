@@ -29,7 +29,7 @@ pipeline {
                 // https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel
                 parallel (
                     linux: {
-                        build job: 'full-build-linux', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
+                        build job: 'pipeline', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
                     },
                     mac: {
                         build job: 'full-build-mac', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
