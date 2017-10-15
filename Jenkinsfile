@@ -29,7 +29,7 @@ pipeline {
       // Execute when branch = 'pipeline'
       stage("BASIC WHEN - Pipeline") {
          when {
-		    branch 'pipeline'
+		    branch 'origin/pipeline'
 		 }
          steps {
             echo 'BASIC WHEN - Pipeline Branch!'
