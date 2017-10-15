@@ -3,10 +3,9 @@ pipeline {
     stages {
         stage ('Build') {
             environment {
-                expression {
-                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    return GIT_BRANCH
-                }
+                
+                    GIT_BRANCH_NAME = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                
             }
             steps {
                sh 'printenv'
