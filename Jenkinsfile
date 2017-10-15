@@ -1,5 +1,17 @@
 pipeline {
   agent any
+
+    parameters {
+        string (
+            defaultValue: '*',
+            description: '',
+            name : 'BRANCH_PATTERN')
+        booleanParam (
+            defaultValue: false,
+            description: '',
+            name : 'FORCE_FULL_BUILD')
+    }
+
     stages {
         stage ('Build') {
             when {
@@ -15,7 +27,6 @@ pipeline {
                 // https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel
                 parallel (
                     linux: {
-                        echo "Here in Linux"
                         build job: 'full-build-linux', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
                     },
                     mac: {
@@ -26,6 +37,18 @@ pipeline {
                     },
                     failFast: false)
             }
+        }
+    }
+
+    stage ('Build Skipped') {
+        when {
+            expression {
+                GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                return !(GIT_BRANCH == 'origin/master' || params.FORCE_FULL_BUILD)
+            }
+        }
+        steps {
+            echo 'Skipped full build.'
         }
     }
 
