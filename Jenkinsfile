@@ -4,7 +4,7 @@ pipeline {
     stage ('test'){
 	steps {      
         sh """
-		GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+		shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()	
 	"""
         sh 'echo $GIT_BRANCH'
       }
