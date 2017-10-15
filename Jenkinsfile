@@ -17,7 +17,7 @@ pipeline {
    stages {
       
       // Execute when branch = 'master'
-      stage("BASIC WHEN - Branch") {
+      stage("BASIC WHEN - Master") {
          when {
 		    branch 'master'
 		 }
@@ -27,7 +27,7 @@ pipeline {
       }
 
       // Execute when branch = 'pipeline'
-      stage("BASIC WHEN - Branch") {
+      stage("BASIC WHEN - Pipeline") {
          when {
 		    branch 'pipeline'
 		 }
