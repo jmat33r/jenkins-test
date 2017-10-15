@@ -9,8 +9,7 @@ pipeline {
                 }
             }
             steps {
-                
-                sh 'echo $GIT_BRANCH'
+               sh 'printenv'
             }
         }
     }
