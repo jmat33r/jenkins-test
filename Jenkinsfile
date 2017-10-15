@@ -4,9 +4,9 @@ pipeline {
     stage ('test'){
 	steps {      
 	  script {
-            shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+            return shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+	    //return GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
         }
-	sh 'echo $shortCommit'
       }
     }
   }
