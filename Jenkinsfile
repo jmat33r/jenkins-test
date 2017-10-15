@@ -13,6 +13,7 @@ pipeline {
                 parallel (
                     linux: {
                         build job: 'test_pipeline', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
+                        sh 'printenv'
                     },
                     mac: {
                         build job: 'full-build-mac', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
