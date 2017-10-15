@@ -12,18 +12,7 @@ pipeline {
     }
 
     stages {
-        stage ('Prepare') {
-            steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: "origin/${BRANCH_PATTERN}"]],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [[$class: 'LocalBranch']],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[
-                        credentialsId: 'bitwiseman_github',
-                        url: 'https://github.com/bitwiseman/hermann']]])
-            }
-        }
+
 
         stage ('Build') {
             when {
