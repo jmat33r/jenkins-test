@@ -1,39 +1,81 @@
+// Jenkinsfile-When
+// ----------------------------------------------------------------------
+// This example shows a variety of ways to use 'when' for flow control
+// Note: This Jenkinsfile needs to be executed as part of a
+//       Multibranch Pipeline project to demonstrate the 'branch' 
+//       variable in the stage("BASIC WHEN - Branch") stage
+// ----------------------------------------------------------------------
 pipeline {
-    agent any
-    stages {
-        stage ('Build') {
-            when {
-                expression {
-                    return GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    //GIT_BRANCH = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-                    //return GIT_BRANCH == 'origin/master' || params.FORCE_FULL_BUILD
-                }
+   agent any
+    
+   environment {
+      VALUE_ONE = '1'
+      VALUE_TWO = '2'
+      VALUE_THREE = '3'
+   }
+    
+   stages {
+      
+      // Execute when branch = 'master'
+      stage("BASIC WHEN - Branch") {
+         when {
+		    branch 'master'
+		 }
+         steps {
+            echo 'BASIC WHEN - Master Branch!'
+         }
+      }
+      
+      // Expression based when example with AND
+      stage('WHEN EXPRESSION with AND') {
+         when {
+            expression {
+               VALUE_ONE == '1' && VALUE_THREE == '3'
             }
-            steps {
-                parallel (
-                    linux: {
-                        build job: 'test_pipeline', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
-                        sh 'printenv'
-                    },
-                    mac: {
-                        build job: 'full-build-mac', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
-                    },
-                    windows: {
-                        build job: 'full-build-windows', parameters: [string(name: 'GIT_BRANCH_NAME', value: GIT_BRANCH)]
-                    },
-                    failFast: false)
+         }
+         steps {
+            echo 'WHEN with AND expression works!'
+         }
+      }
+      
+      // Expression based when example
+      stage('WHEN EXPRESSION with OR') {
+         when {
+            expression {
+               VALUE_ONE == '1' || VALUE_THREE == '2'
+            }
+         }
+         steps {
+            echo 'WHEN with OR expression works!'
+         }
+      }
+      
+      // When - AllOf Example
+      stage("AllOf") {
+        when {
+            allOf {
+                environment name:'VALUE_ONE', value: '1'
+                environment name:'VALUE_TWO', value: '2'
             }
         }
-        stage ('Build Skipped') {
-            when {
-                expression {
-                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    return !(GIT_BRANCH == 'origin/master' || params.FORCE_FULL_BUILD)
-                }
-            }
-            steps {
-                echo 'Skipped full build.'
-            }
+        steps {
+            echo "AllOf Works!!"
         }
-    }
+      }
+      
+      // When - Not AnyOf Example
+      stage("Not AnyOf") {
+         when {
+            not {
+               anyOf {
+                  branch "development"
+                  environment name:'VALUE_TWO', value: '4'
+               }
+            }
+         }
+         steps {
+            echo "Not AnyOf - Works!"
+         }
+      }
+   }
 }
