@@ -6,7 +6,7 @@
 //       variable in the stage("BASIC WHEN - Branch") stage
 // ----------------------------------------------------------------------
 pipeline {
-   agent 'primaryServer33'
+   agent any
     
    environment {
       VALUE_ONE = '1'
