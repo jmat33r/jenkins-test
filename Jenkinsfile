@@ -6,7 +6,7 @@
 //       variable in the stage("BASIC WHEN - Branch") stage
 // ----------------------------------------------------------------------
 pipeline {
-   agent any
+   agent 'primaryServer33'
     
    environment {
       VALUE_ONE = '1'
@@ -15,8 +15,6 @@ pipeline {
    }
     
    stages {
-      
-      // Execute when branch = 'master'
       stage("Begin") {
          steps {
             echo 'BASIC WHEN - Master Branch!'
