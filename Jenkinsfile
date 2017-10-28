@@ -20,6 +20,15 @@ pipeline {
             echo 'BASIC WHEN - Master Branch!'
          }
       }
+
+	stage ('Invoke_pipeline') {
+            steps {
+                build job: 'tomcat_test1', parameters: [
+                string(name: 'param1', value: "value1")
+                ]
+            }
+        }
+
    }
 }
 
