@@ -13,7 +13,7 @@ pipeline {
                     echo ${BRANCH_NAME}
                 """
 
-                #sh 'printenv'
+                sh 'printenv'
             }
         }
           stage ('Invoke_pipeline') {
