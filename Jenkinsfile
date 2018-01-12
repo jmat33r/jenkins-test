@@ -8,7 +8,6 @@ pipeline {
                    BRANCH_NAME= sh(returnStdout: true, script: 'git show --quiet --pretty=%d').trim()
                 }
                 sh """
-                    echo more .git/HEAD
                     echo ${GIT_BRANCH_NAME}
                     echo ${BRANCH_NAME}
                 """
