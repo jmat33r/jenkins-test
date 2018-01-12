@@ -10,6 +10,7 @@ pipeline {
                 sh """
                     echo more .git/HEAD
                     echo ${GIT_BRANCH_NAME}
+                    echo ${BRANCH_NAME}
                 """
 
                 #sh 'printenv'
