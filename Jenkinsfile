@@ -12,7 +12,7 @@ pipeline {
 
                 sh 'printenv'
             }
-}
+        }
           stage ('Invoke_pipeline') {
             steps {
                 build job: 'tomcat_test1', parameters: [
