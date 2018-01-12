@@ -6,7 +6,11 @@ pipeline {
                 script {
                    GIT_BRANCH_NAME = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 }
-               sh 'printenv'
+                sh """
+                    echo ${GIT_BRANCH_NAME}
+                """
+
+                sh 'printenv'
             }
 }
           stage ('Invoke_pipeline') {
