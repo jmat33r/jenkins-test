@@ -7,6 +7,7 @@ pipeline {
                    GIT_BRANCH_NAME = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                 }
                 sh """
+                    echo "here"
                     echo ${GIT_BRANCH_NAME}
                 """
 
