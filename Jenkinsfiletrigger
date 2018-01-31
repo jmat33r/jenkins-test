@@ -1,9 +1,9 @@
 pipeline {
   agent any
     stages {
-        stage ('Invoke_pipeline') {
+        stage ('Invoke_multibranch-pipeline') {
             steps {
-                build job: 'multi-pipeline-jmateer'
+                build job: 'multi-pipeline-jmateer', wait: false
             }
          }
      }
