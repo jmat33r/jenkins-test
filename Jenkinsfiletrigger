@@ -1,0 +1,12 @@
+pipeline {
+  agent any
+    stages {
+        stage ('Invoke_pipeline') {
+            steps {
+                build job: 'multi-pipeline-jmateer'
+            }
+         }
+     }
+ }
+
+
