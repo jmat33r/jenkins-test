@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Invoke_multibranch-pipeline') {
             steps {
-                build job: 'multi-pipeline-jmateer', wait: false
+                build job: 'multibranch-pipeline-jenkins-test', wait: false
             }
          }
      }
